@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<div *ngIf="!ntAccount" id="content" class="container-fluid">
+<div *ngIf="!griffinUser" id="content" class="container-fluid">
   <div class="row" id="content-row">
     <div class="col-md-6 col-md-offset-1 col-xs-12">
       <div id="bark-description">
@@ -46,13 +46,8 @@ under the License.
         </div>
         <input type="input" class="form-control" placeholder="username" autocomplete="on" style="margin-bottom:20px;"
                (focus)="focus($event)">
-        <input type="password" class="form-control" placeholder="password" autocomplete="on" (keyup)="submit($event)"
-               (focus)="focus($event)">
-        <div class="checkbox">
-          <label style="color:white;">
-            <input type="checkbox" value="remember-me" checked>Remember me
-          </label>
-        </div>
+        <input type="password" class="form-control" placeholder="password" autocomplete="on" style="margin-bottom:20px;"
+               (keyup)="submit($event)" (focus)="focus($event)">
         <button class="btn btn-default btn-large btn-block" id="login-btn" (click)="login()"
                 style="margin-bottom: 20px;">Log in
         </button>

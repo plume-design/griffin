@@ -18,6 +18,7 @@ under the License.
 */
 import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from "@angular/common/http";
+import {Router} from "@angular/router";
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/do';
 import {LoaderService} from "./../loader/loader.service";
@@ -25,7 +26,10 @@ import {LoaderService} from "./../loader/loader.service";
 @Injectable()
 export class HttpService implements HttpInterceptor {
 
-  constructor(private loaderService: LoaderService) {
+  constructor(
+    private loaderService: LoaderService,
+    private router: Router
+  ) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -35,6 +39,9 @@ export class HttpService implements HttpInterceptor {
         this.hideLoading();
       }
     }, (err: any) => {
+      if (err.status === 401 || err.status === 403) {
+        this.router.navigate(["logout/login"]);
+      }
       this.hideLoading();
     });
   }

@@ -138,6 +138,10 @@ const appRoutes: Routes = [
     path: 'login',
     component: LoginComponent
   },
+  {
+    path: 'logout/:login',
+    component: LoginComponent
+  },
   // {
   //    path: '**',
   //    component: AppComponent

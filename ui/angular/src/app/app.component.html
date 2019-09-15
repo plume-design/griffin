@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <!--The content below is only a placeholder and can be replaced.-->
-<div *ngIf="ntAccount">
+<div *ngIf="griffinUser">
   <nav class="navbar navbar-default navbar-fixed-top" ng-controller="NavCtrl">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -42,7 +42,7 @@ under the License.
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
-               id="toggle">{{fullName}} <i class="fa fa-user fa-fw"></i><span class="caret"></span></a>
+               id="toggle">{{griffinUser}} <i class="fa fa-user fa-fw"></i><span class="caret"></span></a>
             <ul class="dropdown-menu dropdown-user">
               <li><a href="#!/undercons"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
               <li><a href="#!/undercons"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
@@ -100,7 +100,7 @@ under the License.
   </div>
 </div>
 <app-login></app-login>
-<!-- <div *ngIf="!ntAccount" id="content" class="container-fluid">
+<!-- <div *ngIf="!griffinUser" id="content" class="container-fluid">
         <div class="row" id="content-row">
 
             <div class="col-md-6 col-md-offset-1 col-xs-12">
