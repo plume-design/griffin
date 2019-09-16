@@ -77,7 +77,7 @@ public class SecurityConfig {
                     .userSearchBase(searchBase)
                     .userSearchFilter(searchFilter)
                     .contextSource()
-                    .url(url + searchBase)
+                    .url((url.endsWith("/") ? url : url + "/") + searchBase)
                     .managerDn(managerDn)
                     .managerPassword(managerPassword);
             }
