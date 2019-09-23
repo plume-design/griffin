@@ -43,8 +43,10 @@ public class SecurityConfig {
 
         @Value("${login.strategy}") private String strategy;
         @Value("${ldap.url}") private String url;
-        @Value("${ldap.searchBase}") private String searchBase;
-        @Value("${ldap.searchPattern}") private String searchFilter;
+        @Value("${ldap.userSearchBase}") private String userSearchBase;
+        @Value("${ldap.userSearchPattern}") private String userSearchPattern;
+        @Value("${ldap.groupSearchBase}") private String groupSearchBase;
+        @Value("${ldap.groupSearchPattern}") private String groupSearchPattern;
         @Value("${ldap.bindDN:}") private String managerDn;
         @Value("${ldap.bindPassword:}") private String managerPassword;
 
@@ -74,10 +76,12 @@ public class SecurityConfig {
             try {
                 auth.ldapAuthentication()
                     .userDnPatterns("uid={0}")
-                    .userSearchBase(searchBase)
-                    .userSearchFilter(searchFilter)
+                    .userSearchBase(userSearchBase)
+                    .userSearchFilter(userSearchPattern)
+                    .groupSearchBase(groupSearchBase)
+                    .groupSearchFilter(groupSearchPattern)
                     .contextSource()
-                    .url((url.endsWith("/") ? url : url + "/") + searchBase)
+                    .url(url)
                     .managerDn(managerDn)
                     .managerPassword(managerPassword);
             }
