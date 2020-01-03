@@ -32,7 +32,7 @@ export class ServiceService {
     uri: {
       base: this.BACKEND_SERVER + this.API_ROOT_PATH,
 
-      login: this.BACKEND_SERVER + this.API_ROOT_PATH + "/login/authenticate",
+      // login: this.BACKEND_SERVER + this.API_ROOT_PATH + "/login/authenticate",
       
       dbtree: this.BACKEND_SERVER + this.API_ROOT_PATH + "/metadata/hive/dbs/tables",
       dataassetlist: this.BACKEND_SERVER + this.API_ROOT_PATH + "/metadata/hive/dbs/tables",
