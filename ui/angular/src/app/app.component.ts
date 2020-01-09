@@ -31,9 +31,8 @@ import {HttpClient} from "@angular/common/http";
 })
 export class AppComponent implements AfterViewChecked, OnInit {
   title = "app";
-  ntAccount: string;
+  griffinUser: string;
   timestamp: Date;
-  fullName: string;
 
   onResize(event) {
     this.resizeMainWindow();
@@ -44,8 +43,7 @@ export class AppComponent implements AfterViewChecked, OnInit {
   }
 
   ngOnInit() {
-    this.ntAccount = this.userService.getCookie("ntAccount");
-    this.fullName = this.userService.getCookie("fullName");
+    this.griffinUser = this.userService.getCookie("griffinUser");
   }
 
   constructor(
@@ -62,12 +60,9 @@ export class AppComponent implements AfterViewChecked, OnInit {
   }
 
   logout() {
-    this.ntAccount = undefined;
-    this.userService.setCookie("ntAccount", undefined, -1);
-    this.userService.setCookie("fullName", undefined, -1);
-    this.router.navigate(["login"]);
-    window.location.reload();
-    // window.location.replace ('login');
+    this.http.post('logout', {}).finally(() => {
+        this.router.navigate(["logout/login"]);
+    }).subscribe();
   }
 
   ngAfterViewChecked() {

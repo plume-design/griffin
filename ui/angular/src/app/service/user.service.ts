@@ -20,7 +20,7 @@ import {Injectable} from "@angular/core";
 
 @Injectable()
 export class UserService {
-  ntAccount: string;
+  griffinUser: string;
   timestamp: Date;
 
   setCookie(name, value, days) {

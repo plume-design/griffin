@@ -19,7 +19,7 @@ under the License.
 import {Component, OnInit} from "@angular/core";
 import {ServiceService} from "../service/service.service";
 import {UserService} from "../service/user.service";
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 import {LocationStrategy, HashLocationStrategy} from "@angular/common";
 import {HttpClient} from "@angular/common/http";
 
@@ -30,12 +30,12 @@ import {HttpClient} from "@angular/common/http";
   providers: [ServiceService, UserService]
 })
 export class LoginComponent implements OnInit {
-  ntAccount: string;
+  griffinUser: string;
   timestamp: Date;
-  fullName: string;
   results: any;
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
     public serviceService: ServiceService,
@@ -81,20 +81,12 @@ export class LoginComponent implements OnInit {
   login() {
     var name = $("input:eq(0)").val();
     var password = $("input:eq(1)").val();
-    var loginUrl = this.serviceService.config.uri.login;
     this.loginBtnWait();
-    this.http.post(loginUrl, {username: name, password: password}).subscribe(
+    this.http.post("login", {username: name, password: password}).subscribe(
       data => {
         this.results = data;
         if (this.results.status == 0) {
-          //logon success
-          if ($("input:eq(2)").prop("checked")) {
-            this.userService.setCookie("ntAccount", this.results.ntAccount, 30);
-            this.userService.setCookie("fullName", this.results.fullName, 30);
-          } else {
-            this.userService.setCookie("ntAccount", this.results.ntAccount, 0);
-            this.userService.setCookie("fullName", this.results.fullName, 0);
-          }
+          this.userService.setCookie("griffinUser", this.results.griffinUser, 0);
           this.loginBtnActive();
           window.location.replace("/");
         } else {
@@ -110,8 +102,16 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ntAccount = this.userService.getCookie("ntAccount");
-    this.fullName = this.userService.getCookie("fullName");
+    this.route.paramMap.subscribe(params => {
+      let login = params.get('login');
+      if(login) {
+        this.griffinUser = undefined;
+        this.userService.setCookie("griffinUser", undefined, -1);
+        window.location.reload();
+      } else {
+        this.griffinUser = this.userService.getCookie("griffinUser");
+      }
+    });
     this.timestamp = new Date();
   }
 }
